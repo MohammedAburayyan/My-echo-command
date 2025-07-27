@@ -15,15 +15,12 @@ func readInput() {
 
 	reverse := false
 
+	NormalEchoWords := []string{}
+
 	for i, word := range os.Args[1:] {
 		if len(os.Args) <= 1 {
 			fmt.Println("error: ", "No input provided")
 		}
-		// NOT WORKING
-		// if word != prefix1 && word != prefix2 {
-		// 	fmt.Println(os.Args[1:])
-		// 	return
-		// }
 
 		if word == prefix2 {
 			reverse = true
@@ -41,9 +38,8 @@ func readInput() {
 				pointer1++
 			}
 			fmt.Println(string(runeList))
-		}
-
-		if word == prefix1 {
+			return
+		} else if word == prefix1 {
 			completeString := strings.Join(os.Args[1:i+1], " ")
 			convertString := os.Args[i+2]
 			timesRepeated, err := strconv.Atoi(convertString)
@@ -55,10 +51,14 @@ func readInput() {
 					fmt.Println(completeString)
 				}
 			}
+			return
+		} else {
+			NormalEchoWords = append(NormalEchoWords, word)
 		}
 	}
+	completeNormalEcho := strings.Join(NormalEchoWords, " ")
+	fmt.Println(completeNormalEcho)
 }
-
 func main() {
 	readInput()
 }
